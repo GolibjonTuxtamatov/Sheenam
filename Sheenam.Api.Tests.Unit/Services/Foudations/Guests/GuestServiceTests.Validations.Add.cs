@@ -5,6 +5,7 @@
 
 
 using Sheenam.Api.Models.Foundations.Guests;
+using Sheenam.Api.Services.Foundations.Guests.Exceptions;
 using Xunit;
 
 namespace Sheenam.Api.Tests.Unit.Services.Foudations.Guests
@@ -15,12 +16,20 @@ namespace Sheenam.Api.Tests.Unit.Services.Foudations.Guests
         public async Task ShouldThrowValidationExceptiononAddIfGuestIsNullAndLogItAsync()
         {
             //given
-            Guest guest = null;
-
+            Guest nullGuest = null;
+            var nullGuestException = new NullGuestException();
+            var expectedGuestValidationException =
+                new GuestValidationException(nullGuestException);
 
             //when
+            ValueTask<Guest> addGuestTask =
+                this.guestServic.AddGuestAsync(nullGuest);
 
             //then
+            await Assert.ThrowsAsync<GuestValidationException>(() =>
+                addGuestTask.AsTask());
+
+
         }
     }
 }
