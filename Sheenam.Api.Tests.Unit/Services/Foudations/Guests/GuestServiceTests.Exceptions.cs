@@ -4,6 +4,7 @@
 //==================================================
 
 
+using EFxceptions.Models.Exceptions;
 using Microsoft.Data.SqlClient;
 using Moq;
 using Sheenam.Api.Models.Foundations.Guests;
@@ -43,6 +44,47 @@ namespace Sheenam.Api.Tests.Unit.Services.Foudations.Guests
 
             this.loggingBrokerMock.Verify(broker =>
                 broker.LogCritical(It.Is(SameExceptionAs(expectedGuestDependencyException))),
+                Times.Once());
+
+            this.storageBrokerMock.VerifyNoOtherCalls();
+            this.loggingBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public async Task ShouldThrowDuplicateKeyDependencyExceptionOnAddIfGuestIsExistAndLogItAsync()
+        {
+            //given
+            Guest someGuest = CreateRandomGuest();
+            string randomString = GetRandomString();
+
+            var duplicateKeyException =
+                new DuplicateKeyException(randomString);
+
+            var alreadyGuestExistException =
+                new AlreadyGuestExistException(duplicateKeyException);
+
+            var expectedGuestDependencyValidationException =
+                new GuestDependencyValidationException(alreadyGuestExistException);
+
+            //when
+            ValueTask<Guest> addGuest =
+                this.guestServic.AddGuestAsync(someGuest);
+
+            this.storageBrokerMock.Setup(broker =>
+                broker.InsertGuestAsync(someGuest))
+                .ThrowsAsync(duplicateKeyException);
+
+            //then
+            await Assert.ThrowsAsync<GuestDependencyValidationException>(() =>
+                addGuest.AsTask());
+
+            this.storageBrokerMock.Verify(broker =>
+                broker.InsertGuestAsync(someGuest),
+                Times.Once());
+
+            this.loggingBrokerMock.Verify(broker =>
+                broker.LogError(It.Is(SameExceptionAs(
+                    expectedGuestDependencyValidationException))),
                 Times.Once());
 
             this.storageBrokerMock.VerifyNoOtherCalls();

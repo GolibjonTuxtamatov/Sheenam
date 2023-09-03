@@ -51,6 +51,8 @@ namespace Sheenam.Api.Tests.Unit.Services.Foudations.Guests
         private static SqlException GetSqlError() =>
             (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
 
+        private static string GetRandomString() =>
+            new MnemonicString().GetValue();
 
         private static T GetInvalidEnum<T>()
         {
