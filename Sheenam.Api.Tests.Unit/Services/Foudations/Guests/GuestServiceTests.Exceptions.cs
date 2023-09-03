@@ -60,19 +60,19 @@ namespace Sheenam.Api.Tests.Unit.Services.Foudations.Guests
             var duplicateKeyException =
                 new DuplicateKeyException(randomString);
 
-            var alreadyGuestExistException =
-                new AlreadyGuestExistException(duplicateKeyException);
+            var alreadyExistGuestException =
+                new AlreadyExistGuestException(duplicateKeyException);
 
             var expectedGuestDependencyValidationException =
-                new GuestDependencyValidationException(alreadyGuestExistException);
-
-            //when
-            ValueTask<Guest> addGuest =
-                this.guestServic.AddGuestAsync(someGuest);
+                new GuestDependencyValidationException(alreadyExistGuestException);
 
             this.storageBrokerMock.Setup(broker =>
                 broker.InsertGuestAsync(someGuest))
                 .ThrowsAsync(duplicateKeyException);
+
+            //when
+            ValueTask<Guest> addGuest =
+                this.guestServic.AddGuestAsync(someGuest);
 
             //then
             await Assert.ThrowsAsync<GuestDependencyValidationException>(() =>
