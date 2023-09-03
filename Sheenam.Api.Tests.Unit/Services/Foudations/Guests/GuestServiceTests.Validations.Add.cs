@@ -103,5 +103,46 @@ namespace Sheenam.Api.Tests.Unit.Services.Foudations.Guests
             this.loggingBrokerMock.VerifyNoOtherCalls();
             this.storageBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public async Task ShouldThrowValidationExceptionOnAddIfGenderIsInvalidAndLogItAsync()
+        {
+            //given
+            Guest randomGuest = CreateRandomGuest();
+            Guest invalidGuest = randomGuest;
+            invalidGuest.Gender = GetInvalidEnum<GenderType>();
+            invalidGuest.Status = GetInvalidEnum<ItemState>();
+            var invalidGuestException = new InvalidGuestException();
+
+            invalidGuestException.AddData(
+                key: nameof(Guest.Gender),
+                values: "Value is required");
+
+            invalidGuestException.AddData(
+                key: nameof(Guest.Status),
+                values: "Value is required");
+
+            var expectedGuestValidationException =
+                new GuestValidationException(invalidGuestException);
+
+            //when
+            ValueTask<Guest> addGuestTask =
+                this.guestServic.AddGuestAsync(invalidGuest);
+
+            //then
+            await Assert.ThrowsAsync<GuestValidationException>(() =>
+                addGuestTask.AsTask());
+
+            this.loggingBrokerMock.Verify(broker =>
+                broker.LogError(It.Is(SameExceptionAs(expectedGuestValidationException))),
+                Times.Once());
+
+            this.storageBrokerMock.Verify(broker =>
+                broker.InsertGuestAsync(It.IsAny<Guest>()),
+                Times.Never());
+
+            this.loggingBrokerMock.VerifyNoOtherCalls();
+            this.storageBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
