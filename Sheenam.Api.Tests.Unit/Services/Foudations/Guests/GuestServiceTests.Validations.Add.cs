@@ -111,15 +111,10 @@ namespace Sheenam.Api.Tests.Unit.Services.Foudations.Guests
             Guest randomGuest = CreateRandomGuest();
             Guest invalidGuest = randomGuest;
             invalidGuest.Gender = GetInvalidEnum<GenderType>();
-            invalidGuest.Status = GetInvalidEnum<ItemState>();
             var invalidGuestException = new InvalidGuestException();
 
             invalidGuestException.AddData(
                 key: nameof(Guest.Gender),
-                values: "Value is required");
-
-            invalidGuestException.AddData(
-                key: nameof(Guest.Status),
                 values: "Value is required");
 
             var expectedGuestValidationException =
