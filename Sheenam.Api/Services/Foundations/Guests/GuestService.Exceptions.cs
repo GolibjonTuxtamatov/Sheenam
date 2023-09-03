@@ -5,6 +5,7 @@
 
 
 using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
 using Sheenam.Api.Models.Foundations.Guests;
 using Sheenam.Api.Services.Foundations.Guests.Exceptions;
 using Xeptions;
@@ -29,6 +30,11 @@ namespace Sheenam.Api.Services.Foundations.Guests
             {
                 throw CreateAndLogValidationException(invalidGuestException);
             }
+            catch (SqlException sqlException)
+            {
+                var failedGuestStorageException = new FailedGuestStorageException(sqlException);
+                throw CreateAndLogCriticaDependencyException(failedGuestStorageException);
+            }
         }
 
 
@@ -40,6 +46,14 @@ namespace Sheenam.Api.Services.Foundations.Guests
             this.loggingBroker.LogError(guestValidationException);
 
             return guestValidationException;
+        }
+
+        private GuestDependencyException CreateAndLogCriticaDependencyException(Xeption exception)
+        {
+            var guestDependencyException = new GuestDependencyException(exception);
+            this.loggingBroker.LogCritical(guestDependencyException);
+
+            return guestDependencyException;
         }
     }
 }
