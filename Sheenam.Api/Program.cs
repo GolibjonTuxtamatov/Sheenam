@@ -18,7 +18,7 @@ namespace Sheenam.Api
         {
             return Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
-                
+
                     webBuilder.UseStartup<Startup>());
         }
     }
