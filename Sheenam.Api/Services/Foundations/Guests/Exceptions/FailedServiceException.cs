@@ -12,7 +12,7 @@ namespace Sheenam.Api.Services.Foundations.Guests.Exceptions
     public class FailedServiceException : Xeption
     {
         public FailedServiceException(Exception innerException)
-            :base(message:"Guest service error occured, contact support",
+            :base(message:"Failde guest service error occured, contact support",
                  innerException)
         { }
     }

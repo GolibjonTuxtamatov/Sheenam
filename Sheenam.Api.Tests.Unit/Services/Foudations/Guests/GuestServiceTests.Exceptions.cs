@@ -92,7 +92,7 @@ namespace Sheenam.Api.Tests.Unit.Services.Foudations.Guests
         }
 
         [Fact]
-        public async Task ShouldThrowServiceExceptionAndLogItAsync()
+        public async Task ShouldThrowServiceExceptionOnAddIfServiceErrorOccursAndLogItAsync()
         {
             //given
             Guest someGuest = CreateRandomGuest();
