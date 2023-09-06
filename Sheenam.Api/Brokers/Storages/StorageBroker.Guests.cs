@@ -29,7 +29,7 @@ namespace Sheenam.Api.Brokers.Storages
             return guestEntityEntr.Entity;
         }
 
-        public async ValueTask<IEnumerable<Guest>> RetrieveAllGuestsAsync()
+        public async ValueTask<IEnumerable<Guest>> SelectAllGuestsAsync()
         {
             using var broker = new StorageBroker(this.configuration);
 
