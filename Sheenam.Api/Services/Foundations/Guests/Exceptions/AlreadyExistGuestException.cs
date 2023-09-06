@@ -12,8 +12,8 @@ namespace Sheenam.Api.Services.Foundations.Guests.Exceptions
     public class AlreadyExistGuestException : Xeption
     {
         public AlreadyExistGuestException(Exception innerException)
-            : base(message:"Guest already exist",
+            : base(message: "Guest already exist",
                   innerException)
-        {}
+        { }
     }
 }

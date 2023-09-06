@@ -34,7 +34,7 @@ namespace Sheenam.Api.Tests.Unit.Services.Foudations.Guests
                 loggingBroker: this.loggingBrokerMock.Object);
         }
 
-        private Expression<Func<Xeption,bool>> SameExceptionAs(Xeption expectedException)
+        private Expression<Func<Xeption, bool>> SameExceptionAs(Xeption expectedException)
         {
             return actualException =>
                 actualException.Message == expectedException.Message
@@ -58,7 +58,7 @@ namespace Sheenam.Api.Tests.Unit.Services.Foudations.Guests
         {
             int randomNumber = GetRandomNumber();
 
-            while (Enum.IsDefined(typeof(T),randomNumber) is true)
+            while (Enum.IsDefined(typeof(T), randomNumber) is true)
             {
                 randomNumber = GetRandomNumber();
             }
