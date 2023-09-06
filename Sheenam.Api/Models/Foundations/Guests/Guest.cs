@@ -20,7 +20,7 @@ namespace Sheenam.Api.Models.Foundations.Guests
         public GenderType Gender { get; set; }
         public ItemState Status { get; set; } = ItemState.Active;
         public DateTimeOffset CreatedDate { get; set; } = DateTimeOffset.Now;
-        public DateTimeOffset UpdatedDate { get; set; }
-        public DateTimeOffset DeletedDate { get; set; }
+        public DateTimeOffset? UpdatedDate { get; set; }
+        public DateTimeOffset? DeletedDate { get; set; }
     }
 }
