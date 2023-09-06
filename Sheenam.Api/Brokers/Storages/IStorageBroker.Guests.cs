@@ -14,6 +14,6 @@ namespace Sheenam.Api.Brokers.Storages
     {
         ValueTask<Guest> InsertGuestAsync(Guest guest);
 
-        ValueTask<IEnumerable<Guest>> RetrieveAllGuestAsync();
+        ValueTask<IEnumerable<Guest>> RetrieveAllGuestsAsync();
     }
 }
