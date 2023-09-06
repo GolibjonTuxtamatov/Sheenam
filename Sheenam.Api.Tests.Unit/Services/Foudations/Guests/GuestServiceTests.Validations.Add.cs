@@ -19,6 +19,7 @@ namespace Sheenam.Api.Tests.Unit.Services.Foudations.Guests
             //given
             Guest nullGuest = null;
             var nullGuestException = new NullGuestException();
+
             var expectedGuestValidationException =
                 new GuestValidationException(nullGuestException);
 
