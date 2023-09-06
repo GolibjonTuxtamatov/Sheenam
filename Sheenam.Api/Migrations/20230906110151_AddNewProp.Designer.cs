@@ -12,7 +12,7 @@ using Sheenam.Api.Brokers.Storages;
 namespace Sheenam.Api.Migrations
 {
     [DbContext(typeof(StorageBroker))]
-    [Migration("20230902103923_AddNewProp")]
+    [Migration("20230906110151_AddNewProp")]
     partial class AddNewProp
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,13 +33,7 @@ namespace Sheenam.Api.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset>("CreatedDate")
-                        .HasColumnType("datetimeoffset");
-
                     b.Property<DateTimeOffset>("DateOfBirth")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<DateTimeOffset>("DeletedDate")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Email")
@@ -59,9 +53,6 @@ namespace Sheenam.Api.Migrations
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
-
-                    b.Property<DateTimeOffset>("UpdatedDate")
-                        .HasColumnType("datetimeoffset");
 
                     b.HasKey("Id");
 
