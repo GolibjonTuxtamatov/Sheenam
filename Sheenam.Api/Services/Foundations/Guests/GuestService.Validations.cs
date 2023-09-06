@@ -18,7 +18,7 @@ namespace Sheenam.Api.Services.Foundations.Guests
 
             Validate(
                 (Rule: IsInvalid(guest.Id), Parameter: nameof(Guest.Id)),
-                (Rule: IsInvalid(guest.FirstName),Parameter:nameof(Guest.Id)),
+                (Rule: IsInvalid(guest.FirstName), Parameter: nameof(Guest.Id)),
                 (Rule: IsInvalid(guest.LastName), Parameter: nameof(Guest.LastName)),
                 (Rule: IsInvalid(guest.DateOfBirth), Parameter: nameof(Guest.DateOfBirth)),
                 (Rule: IsInvalid(guest.Email), Parameter: nameof(Guest.Email)),
@@ -58,7 +58,7 @@ namespace Sheenam.Api.Services.Foundations.Guests
             Message = "Values is required"
         };
 
-        private static void Validate(params (dynamic Rule,string Parameter)[] validations)
+        private static void Validate(params (dynamic Rule, string Parameter)[] validations)
         {
             var invalidGuestException = new InvalidGuestException();
 
