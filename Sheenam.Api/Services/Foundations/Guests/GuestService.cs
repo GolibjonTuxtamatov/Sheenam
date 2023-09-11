@@ -33,6 +33,6 @@ namespace Sheenam.Api.Services.Foundations.Guests
             });
 
         public IQueryable<Guest> RetrieveAllGuests() =>
-            throw new System.NotImplementedException();
+            this.storageBroker.SelectAllGuests();
     }
 }
