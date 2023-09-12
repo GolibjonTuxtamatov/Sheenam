@@ -14,7 +14,7 @@ namespace Sheenam.Api.Tests.Unit.Services.Foudations.Guests
     public partial class GuestServiceTests
     {
         [Fact]
-        public void ShouldThrowCriticalDependencyExceptionOnGetIfSqlErrorOccuresAndLogItAsync()
+        public void ShouldThrowServiceExceptionOnGetIfServiceErrorOccuresAndLogItAsync()
         {
             //given
             IQueryable<Guest> someGuests = CreateRandomGuests();
