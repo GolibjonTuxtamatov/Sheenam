@@ -4,7 +4,7 @@
 //==================================================
 
 
-using System.Collections.Generic;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Sheenam.Api.Brokers.Loggings;
@@ -33,6 +33,6 @@ namespace Sheenam.Api.Services.Foundations.Guests
             });
 
         public IQueryable<Guest> RetrieveAllGuests() =>
-            this.storageBroker.SelectAllGuests();
+            throw new NotImplementedException();
     }
 }
