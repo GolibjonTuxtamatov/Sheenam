@@ -31,7 +31,7 @@ namespace Sheenam.Api.Tests.Unit.Services.Foudations.Guests
             Action actualGuests = () => this.guestServic.RetrieveAllGuests();
 
             //then
-            Assert.Throws<GuestDependencyException>(actualGuests);
+            Assert.Throws<GuestServiceException>(actualGuests);
 
             this.storageBrokerMock.Verify(broker =>
                 broker.SelectAllGuests(),
