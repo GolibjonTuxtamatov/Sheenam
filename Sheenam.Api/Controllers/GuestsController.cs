@@ -4,6 +4,7 @@
 //==================================================
 
 
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RESTFulSense.Controllers;
@@ -49,6 +50,25 @@ namespace Sheenam.Api.Controllers
             catch (GuestDependencyException guestDependencyException)
             {
                 return InternalServerError(guestDependencyException.InnerException);
+            }
+            catch (GuestServiceException guestServiceException)
+            {
+                return InternalServerError(guestServiceException.InnerException);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult<IQueryable<Guest>> GetAllGuest()
+        {
+            try
+            {
+                var allGuests = this.guestService.RetrieveAllGuests();
+
+                return Ok(allGuests);
+            }
+            catch (GuestDependencyException guestDependencyException)
+            {
+                return InternalServerError(guestDependencyException);
             }
             catch (GuestServiceException guestServiceException)
             {
