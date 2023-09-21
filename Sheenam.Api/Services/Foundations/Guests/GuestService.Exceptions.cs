@@ -63,6 +63,10 @@ namespace Sheenam.Api.Services.Foundations.Guests
             {
                 return returningGuestsFunction();
             }
+            catch (SqlException sqlException)
+            {
+                throw new System.NotImplementedException();
+            }
             catch (Exception exception)
             {
                 var failedServiceException = new FailedServiceException(exception);

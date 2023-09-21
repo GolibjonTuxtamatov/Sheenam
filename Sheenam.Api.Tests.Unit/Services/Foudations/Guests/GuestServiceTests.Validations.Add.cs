@@ -53,7 +53,7 @@ namespace Sheenam.Api.Tests.Unit.Services.Foudations.Guests
             //given
             var invalidGuest = new Guest
             {
-                FirstName = invalidText,
+                FirstName = invalidText
             };
 
             var invalidGuestException = new InvalidGuestException();
