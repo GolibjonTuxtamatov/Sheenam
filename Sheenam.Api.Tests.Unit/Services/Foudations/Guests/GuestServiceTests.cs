@@ -45,6 +45,9 @@ namespace Sheenam.Api.Tests.Unit.Services.Foudations.Guests
         private static Guest CreateRandomGuest() =>
             CreateGuestFiller(date: GetRandomDateTimeOffcet()).Create();
 
+        private static IQueryable<Guest> CreateRandomGuests() =>
+            CreateGuestFiller(GetRandomDateTimeOffcet()).Create(GetRandomNumber()).AsQueryable();
+
         private static int GetRandomNumber() =>
             new IntRange(min: 2, max: 9).GetValue();
 

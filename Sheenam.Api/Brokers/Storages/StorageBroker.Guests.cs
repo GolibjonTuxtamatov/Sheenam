@@ -4,7 +4,6 @@
 //==================================================
 
 
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -29,11 +28,11 @@ namespace Sheenam.Api.Brokers.Storages
             return guestEntityEntr.Entity;
         }
 
-        public async ValueTask<IEnumerable<Guest>> SelectAllGuestsAsync()
+        public IQueryable<Guest> SelectAllGuests()
         {
             using var broker = new StorageBroker(this.configuration);
 
-            return broker.Guests.ToList();
+            return broker.Guests;
         }
 
     }
