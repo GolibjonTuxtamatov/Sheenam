@@ -65,7 +65,10 @@ namespace Sheenam.Api.Services.Foundations.Guests
             }
             catch (SqlException sqlException)
             {
-                throw new System.NotImplementedException();
+                var failedGuestStroageException =
+                    new FailedGuestStorageException(sqlException);
+
+                throw CreateAndLogCriticaDependencyException(failedGuestStroageException);
             }
             catch (Exception exception)
             {
