@@ -4,6 +4,7 @@
 //==================================================
 
 
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -69,6 +70,25 @@ namespace Sheenam.Api.Controllers
             catch (GuestDependencyException guestDependencyException)
             {
                 return InternalServerError(guestDependencyException);
+            }
+            catch (GuestServiceException guestServiceException)
+            {
+                return InternalServerError(guestServiceException.InnerException);
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async ValueTask<ActionResult<Guest>> GetGuestByIdAsync(Guid id)
+        {
+            try
+            {
+                var guest = await this.guestService.RetrieveGuestByIdAsync(id);
+
+                return Ok(guest);
+            }
+            catch (GuestDependencyException guestDependencyException)
+            {
+                return InternalServerError(guestDependencyException.InnerException);
             }
             catch (GuestServiceException guestServiceException)
             {
