@@ -4,6 +4,7 @@
 //==================================================
 
 
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -35,5 +36,14 @@ namespace Sheenam.Api.Brokers.Storages
             return broker.Guests;
         }
 
+        public async ValueTask<Guest> SelectGuestByIdAsync(Guid id)
+        {
+            using var broker = new StorageBroker(this.configuration);
+
+            Guest guest =
+                await broker.Guests.FirstOrDefaultAsync(p => p.Id == id);
+
+            return guest;
+        }
     }
 }
