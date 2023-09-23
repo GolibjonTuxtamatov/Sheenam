@@ -5,6 +5,7 @@
 
 
 using System;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -85,6 +86,38 @@ namespace Sheenam.Api.Controllers
                 var guest = await this.guestService.RetrieveGuestByIdAsync(id);
 
                 return Ok(guest);
+            }
+            catch (GuestDependencyException guestDependencyException)
+            {
+                return InternalServerError(guestDependencyException.InnerException);
+            }
+            catch (GuestServiceException guestServiceException)
+            {
+                return InternalServerError(guestServiceException.InnerException);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async ValueTask<ActionResult<Guest>> PutGuestAsync(Guid id)
+        {
+            try
+            {
+                var putedGuest = await this.guestService.ModifyGuestAsync(id);
+
+                return Ok(putedGuest);
+            }
+            catch (GuestValidationException guestValidationException)
+            {
+                return BadRequest(guestValidationException.InnerException);
+            }
+            catch (GuestDependencyValidationException guestDependencyValidationException)
+                when (guestDependencyValidationException.InnerException is AlreadyExistGuestException)
+            {
+                return Conflict(guestDependencyValidationException.InnerException);
+            }
+            catch (GuestDependencyValidationException guestDependencyValidationException)
+            {
+                return BadRequest(guestDependencyValidationException.InnerException);
             }
             catch (GuestDependencyException guestDependencyException)
             {
