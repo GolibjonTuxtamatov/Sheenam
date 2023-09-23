@@ -41,5 +41,11 @@ namespace Sheenam.Api.Services.Foundations.Guests
             {
                 return await this.storageBroker.SelectGuestByIdAsync(id);
             });
+
+        public ValueTask<Guest> ModifyGuestAsync(Guid id) =>
+            TryCatch(async () =>
+            {
+                return await this.storageBroker.UpdateGuestAsync(id);
+            });
     }
 }
