@@ -62,7 +62,7 @@ namespace Sheenam.Api.Brokers.Storages
         {
             using var broker = new StorageBroker(this.configuration);
 
-            Guest guest = await broker.Guests.FirstOrDefaultAsync(p =>p.Id == id);
+            Guest guest = await broker.Guests.FirstOrDefaultAsync(p => p.Id == id);
 
             guest.Status = ItemState.Delete;
             await broker.SaveChangesAsync();

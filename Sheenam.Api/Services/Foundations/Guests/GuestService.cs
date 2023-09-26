@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using Sheenam.Api.Brokers.Loggings;
 using Sheenam.Api.Brokers.Storages;
 using Sheenam.Api.Models.Foundations.Guests;
-using Sheenam.Api.Services.Foundations.Guests.Exceptions;
 
 namespace Sheenam.Api.Services.Foundations.Guests
 {
@@ -34,7 +33,7 @@ namespace Sheenam.Api.Services.Foundations.Guests
             });
 
         public IQueryable<Guest> RetrieveAllGuests() =>
-            TryCatch( () => this.storageBroker.SelectAllGuests());
+            TryCatch(() => this.storageBroker.SelectAllGuests());
 
         public ValueTask<Guest> RetrieveGuestByIdAsync(Guid id) =>
             TryCatch(async () =>
