@@ -1,6 +1,10 @@
-﻿namespace Sheenam.Api.Brokers.Storages
+﻿using System.Threading.Tasks;
+using Sheenam.Api.Models.Foundations.Hosts;
+
+namespace Sheenam.Api.Brokers.Storages
 {
-    public interface IStorageBroker
+    public partial interface IStorageBroker
     {
+        ValueTask<Host> InsertHostAsync(Host host);
     }
 }
