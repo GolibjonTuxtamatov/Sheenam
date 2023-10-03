@@ -5,6 +5,7 @@
 
 
 using System;
+using Sheenam.Api.Brokers.Storages;
 using Sheenam.Api.Models.Foundations.Guests;
 using Sheenam.Api.Services.Foundations.Guests.Exceptions;
 
@@ -57,6 +58,11 @@ namespace Sheenam.Api.Services.Foundations.Guests
             Condition = Enum.IsDefined(gender) is false,
             Message = "Values is required"
         };
+
+        private static bool ValidateId(Guid id)
+        {
+            var guest = 
+        }
 
         private static void Validate(params (dynamic Rule, string Parameter)[] validations)
         {
