@@ -59,9 +59,9 @@ namespace Sheenam.Api.Services.Foundations.Guests
             Message = "Values is required"
         };
 
-        private static bool ValidateId(Guid id)
+        private static void ValidateId(Guid id)
         {
-            var guest = 
+            Validate((IsInvalid(id), nameof(Guest.Id)));
         }
 
         private static void Validate(params (dynamic Rule, string Parameter)[] validations)
