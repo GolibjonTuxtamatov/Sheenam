@@ -12,8 +12,8 @@ using Sheenam.Api.Brokers.Storages;
 namespace Sheenam.Api.Migrations
 {
     [DbContext(typeof(StorageBroker))]
-    [Migration("20230926141202_CreateHostModelAndMigrate")]
-    partial class CreateHostModelAndMigrate
+    [Migration("20240626091445_New Migration")]
+    partial class NewMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
