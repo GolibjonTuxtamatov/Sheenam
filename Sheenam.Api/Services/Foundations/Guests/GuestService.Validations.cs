@@ -39,6 +39,12 @@ namespace Sheenam.Api.Services.Foundations.Guests
             }
         }
 
+        private void ValidateStorageGuestToExists(Guest maybeGuest,Guid inputGuid)
+        {
+            if(maybeGuest is null)
+                throw new NotFoundGuestException(inputGuid);
+        }
+
         private static dynamic IsInvalid(Guid id) => new
         {
             Condition = id == Guid.Empty,
