@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Sheenam.Api.Brokers.Loggings;
 using Sheenam.Api.Brokers.Storages;
 using Sheenam.Api.Models.Foundations.Guests;
+using Sheenam.Api.Models.Foundations.Guests.Exceptions;
 
 namespace Sheenam.Api.Services.Foundations.Guests
 {
@@ -38,9 +39,15 @@ namespace Sheenam.Api.Services.Foundations.Guests
         public ValueTask<Guest> RetrieveGuestByIdAsync(Guid id) =>
             TryCatch(async () =>
             {
-                ValidateId(id);
-                return await this.storageBroker.SelectGuestByIdAsync(id);
+                ValidateGuestId(id);
+
+                Guest maybeGuest = await this.storageBroker.SelectGuestByIdAsync(id);
+
+                ValidateStorageGuestToExists(maybeGuest,id);
+
+                return maybeGuest;
             });
+            
 
         public ValueTask<Guest> ModifyGuestAsync(Guid id) =>
             TryCatch(async () =>

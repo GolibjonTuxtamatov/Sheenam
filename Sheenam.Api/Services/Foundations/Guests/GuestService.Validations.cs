@@ -5,6 +5,7 @@
 
 
 using System;
+using System.Reflection.Metadata;
 using Sheenam.Api.Models.Foundations.Guests;
 using Sheenam.Api.Models.Foundations.Guests.Exceptions;
 
@@ -26,12 +27,22 @@ namespace Sheenam.Api.Services.Foundations.Guests
                 (Rule: IsInvalid(guest.Gender), Parameter: nameof(Guest.Gender))
                 );
         }
+
+        private void ValidateGuestId(Guid inputGuestId) =>
+            Validate((Rule: IsInvalid(inputGuestId), Parameter: nameof(Guest.Id)));
+
         private void ValidateGuestNotNull(Guest guest)
         {
             if (guest is null)
             {
                 throw new NullGuestException();
             }
+        }
+
+        private void ValidateStorageGuestToExists(Guest maybeGuest,Guid inputGuid)
+        {
+            if(maybeGuest is null)
+                throw new NotFoundGuestException(inputGuid);
         }
 
         private static dynamic IsInvalid(Guid id) => new
@@ -57,11 +68,6 @@ namespace Sheenam.Api.Services.Foundations.Guests
             Condition = Enum.IsDefined(gender) is false,
             Message = "Values is required"
         };
-
-        private static void ValidateId(Guid id)
-        {
-            Validate((IsInvalid(id), nameof(Guest.Id)));
-        }
 
         private static void Validate(params (dynamic Rule, string Parameter)[] validations)
         {
