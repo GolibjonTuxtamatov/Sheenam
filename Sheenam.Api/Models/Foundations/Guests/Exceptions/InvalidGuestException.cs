@@ -6,12 +6,12 @@
 
 using Xeptions;
 
-namespace Sheenam.Api.Services.Foundations.Guests.Exceptions
+namespace Sheenam.Api.Models.Foundations.Guests.Exceptions
 {
-    public class NullGuestException : Xeption
+    public class InvalidGuestException : Xeption
     {
-        public NullGuestException()
-            : base(message: "Guest is null")
+        public InvalidGuestException()
+            : base(message: "Guest is invalid")
         { }
     }
 }

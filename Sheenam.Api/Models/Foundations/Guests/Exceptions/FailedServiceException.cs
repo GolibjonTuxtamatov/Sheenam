@@ -4,14 +4,15 @@
 //==================================================
 
 
+using System;
 using Xeptions;
 
-namespace Sheenam.Api.Services.Foundations.Guests.Exceptions
+namespace Sheenam.Api.Models.Foundations.Guests.Exceptions
 {
-    public class GuestValidationException : Xeption
+    public class FailedServiceException : Xeption
     {
-        public GuestValidationException(Xeption innerException)
-            : base(message: "Guest validation error occured, fix the errors and try again",
+        public FailedServiceException(Exception innerException)
+            : base(message: "Failde guest service error occured, contact support",
                  innerException)
         { }
     }

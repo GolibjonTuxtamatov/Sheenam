@@ -7,12 +7,13 @@
 using System;
 using Xeptions;
 
-namespace Sheenam.Api.Services.Foundations.Guests.Exceptions
+namespace Sheenam.Api.Models.Foundations.Guests.Exceptions
 {
-    public class FailedServiceException : Xeption
+    public class FailedGuestStorageException : Xeption
     {
-        public FailedServiceException(Exception innerException)
-            : base(message: "Failde guest service error occured, contact support",
+        public FailedGuestStorageException(Exception innerException)
+            : base(
+                 message: "Failed guest storage error occured, contact support",
                  innerException)
         { }
     }
