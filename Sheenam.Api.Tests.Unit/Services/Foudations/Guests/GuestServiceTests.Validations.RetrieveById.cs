@@ -46,5 +46,35 @@ namespace Sheenam.Api.Tests.Unit.Services.Foudations.Guests
             this.loggingBrokerMock.VerifyNoOtherCalls();
             this.storageBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public async Task ShouldThrowValidationExcetionOnRetrieveByIdIfGuestNotFoundAndLogItAsync()
+        {
+            //given
+            Guid someGuid = Guid.NewGuid();
+            Guest nullGuest = null;
+
+            var notFoundGuetException = new NotFoundGuestException(someGuid);
+
+            var expectedGuestValidationException =
+                new GuestValidationException(notFoundGuetException);
+
+            //when
+            ValueTask<Guest> retrieveGuestyIdTask =
+                this.guestServic.RetrieveGuestByIdAsync(someGuid);
+
+                await Assert.ThrowsAsync<GuestValidationException>(retrieveGuestyIdTask.AsTask);
+
+            //then
+            this.storageBrokerMock.Verify(broker =>
+                broker.SelectGuestByIdAsync(someGuid), Times.Once);
+
+            this.loggingBrokerMock.Verify(broker =>
+                broker.LogError(It.Is(SameExceptionAs(expectedGuestValidationException))),
+                    Times.Once);
+
+            this.storageBrokerMock.VerifyNoOtherCalls();
+            this.loggingBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
