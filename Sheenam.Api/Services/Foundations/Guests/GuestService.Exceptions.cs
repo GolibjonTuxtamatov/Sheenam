@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using EFxceptions.Models.Exceptions;
 using Microsoft.Data.SqlClient;
 using Sheenam.Api.Models.Foundations.Guests;
-using Sheenam.Api.Services.Foundations.Guests.Exceptions;
+using Sheenam.Api.Models.Foundations.Guests.Exceptions;
 using Xeptions;
 
 namespace Sheenam.Api.Services.Foundations.Guests
