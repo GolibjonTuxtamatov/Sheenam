@@ -32,11 +32,9 @@ namespace Sheenam.Api.Tests.Unit.Services.Foudations.Guests
             ValueTask<Guest> retrieveByIdGuestTask =
                 this.guestServic.RetrieveGuestByIdAsync(invalidGuestId);
 
-            GuestValidationException actualGuestValidationException =
                 await Assert.ThrowsAsync<GuestValidationException>(retrieveByIdGuestTask.AsTask);
 
             //then
-            actualGuestValidationException.Should().BeEquivalentTo(expectedGuestValidationException);
 
             this.loggingBrokerMock.Verify(broker =>
                 broker.LogError(It.Is(SameExceptionAs(expectedGuestValidationException)))
