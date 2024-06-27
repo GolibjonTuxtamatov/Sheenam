@@ -36,11 +36,7 @@ namespace Sheenam.Api.Services.Foundations.Guests
             TryCatch(() => this.storageBroker.SelectAllGuests());
 
         public ValueTask<Guest> RetrieveGuestByIdAsync(Guid id) =>
-            TryCatch(async () =>
-            {
-                ValidateId(id);
-                return await this.storageBroker.SelectGuestByIdAsync(id);
-            });
+            throw new NotImplementedException();
 
         public ValueTask<Guest> ModifyGuestAsync(Guid id) =>
             TryCatch(async () =>
