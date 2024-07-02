@@ -52,7 +52,6 @@ namespace Sheenam.Api.Services.Foundations.Guests
 
                 throw CreateAndLogDependencyValidationException(alreadyExistGuestException);
             }
-
             catch (Exception exception)
             {
                 var failedServiceException = new FailedServiceException(exception);
