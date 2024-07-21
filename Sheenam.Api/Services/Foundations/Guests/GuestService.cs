@@ -49,7 +49,7 @@ namespace Sheenam.Api.Services.Foundations.Guests
 
 
         public ValueTask<Guest> ModifyGuestAsync(Guest guest) =>
-            throw new NotImplementedException();
+            this.storageBroker.UpdateGuestAsync(guest);
 
         public async ValueTask<Guest> DeleteGuestAsync(Guid id)
         {
