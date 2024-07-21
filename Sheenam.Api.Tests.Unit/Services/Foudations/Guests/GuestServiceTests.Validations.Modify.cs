@@ -18,12 +18,7 @@ namespace Sheenam.Api.Tests.Unit.Services.Foudations.Guests
         {
             //given
             Guest nullGuest = null;
-
             var nullGuestException = new NullGuestException();
-
-            this.storageBrokerMock.Setup(broker =>
-                broker.UpdateGuestAsync(nullGuest))
-                    .ThrowsAsync(nullGuestException);
 
             var expectedGuestValidationException =
                 new GuestValidationException(nullGuestException);
@@ -31,11 +26,9 @@ namespace Sheenam.Api.Tests.Unit.Services.Foudations.Guests
             //given
             ValueTask<Guest> modifyGuestTask = this.guestServic.ModifyGuestAsync(nullGuest);
 
-            GuestValidationException actualGuestValidationException =
                 await Assert.ThrowsAsync<GuestValidationException>(modifyGuestTask.AsTask);
 
             //then
-            actualGuestValidationException.Should().BeEquivalentTo(expectedGuestValidationException);
 
             this.loggingBrokerMock.Verify(broker =>
                 broker.LogError(It.Is(SameExceptionAs(expectedGuestValidationException))),

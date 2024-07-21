@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Sheenam.Api.Brokers.Loggings;
 using Sheenam.Api.Brokers.Storages;
 using Sheenam.Api.Models.Foundations.Guests;
+using Sheenam.Api.Models.Foundations.Guests.Exceptions;
 
 namespace Sheenam.Api.Services.Foundations.Guests
 {
@@ -48,8 +49,21 @@ namespace Sheenam.Api.Services.Foundations.Guests
             });
 
 
-        public async ValueTask<Guest> ModifyGuestAsync(Guest guest) =>
-            await this.storageBroker.UpdateGuestAsync(guest);
+        public async ValueTask<Guest> ModifyGuestAsync(Guest guest)
+        {
+            try
+            {
+                if (guest == null)
+                    throw new NullGuestException();
+
+                return await this.storageBroker.UpdateGuestAsync(guest);
+            }
+            catch (NullGuestException nullGuestException)
+            {
+
+                throw CreateAndLogValidationException(nullGuestException);
+            }
+        }
 
         public async ValueTask<Guest> DeleteGuestAsync(Guid id)
         {
