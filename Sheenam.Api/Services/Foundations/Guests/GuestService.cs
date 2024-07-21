@@ -49,21 +49,13 @@ namespace Sheenam.Api.Services.Foundations.Guests
             });
 
 
-        public async ValueTask<Guest> ModifyGuestAsync(Guest guest)
-        {
-            try
+        public ValueTask<Guest> ModifyGuestAsync(Guest guest) =>
+            TryCatch(async () =>
             {
-                if (guest == null)
-                    throw new NullGuestException();
+                ValidateGuestNotNull(guest);
 
                 return await this.storageBroker.UpdateGuestAsync(guest);
-            }
-            catch (NullGuestException nullGuestException)
-            {
-
-                throw CreateAndLogValidationException(nullGuestException);
-            }
-        }
+            });
 
         public async ValueTask<Guest> DeleteGuestAsync(Guid id)
         {
