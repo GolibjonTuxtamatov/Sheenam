@@ -17,57 +17,19 @@ namespace Sheenam.Api.Brokers.Storages
     {
         DbSet<Guest> Guests { get; set; }
 
-        public async ValueTask<Guest> InsertGuestAsync(Guest guest)
-        {
-            using var broker = new StorageBroker(this.configuration);
+        public async ValueTask<Guest> InsertGuestAsync(Guest guest) =>
+            await InsertAsync(guest);
 
-            EntityEntry<Guest> guestEntityEntr =
-                await broker.Guests.AddAsync(guest);
+        public IQueryable<Guest> SelectAllGuests() =>
+            SelectAll<Guest>();
 
-            await broker.SaveChangesAsync();
+        public async ValueTask<Guest> SelectGuestByIdAsync(Guid id) =>
+            await SelectAsync<Guest>(id);
 
-            return guestEntityEntr.Entity;
-        }
+        public async ValueTask<Guest> UpdateGuestAsync(Guest guest) =>
+            await UpdateAsync(guest);
 
-        public IQueryable<Guest> SelectAllGuests()
-        {
-            using var broker = new StorageBroker(this.configuration);
-
-            return broker.Guests;
-        }
-
-        public async ValueTask<Guest> SelectGuestByIdAsync(Guid id)
-        {
-            using var broker = new StorageBroker(this.configuration);
-
-            Guest guest =
-                await broker.Guests.FirstOrDefaultAsync(p => p.Id == id);
-
-            return guest;
-        }
-
-        public async ValueTask<Guest> UpdateGuestAsync(Guid id)
-        {
-            using var broker = new StorageBroker(this.configuration);
-
-            Guest guest = await broker.Guests.FirstOrDefaultAsync(p => p.Id == id);
-
-            guest.Status = ItemState.Update;
-            await broker.SaveChangesAsync();
-
-            return guest;
-        }
-
-        public async ValueTask<Guest> DeleteGuestAsync(Guid id)
-        {
-            using var broker = new StorageBroker(this.configuration);
-
-            Guest guest = await broker.Guests.FirstOrDefaultAsync(p => p.Id == id);
-
-            guest.Status = ItemState.Delete;
-            await broker.SaveChangesAsync();
-
-            return guest;
-        }
+        public async ValueTask<Guest> DeleteGuestAsync(Guest guest) =>
+            await DeleteAsync(guest);
     }
 }
