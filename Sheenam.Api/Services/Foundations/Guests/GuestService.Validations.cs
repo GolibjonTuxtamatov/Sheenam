@@ -5,7 +5,6 @@
 
 
 using System;
-using System.Reflection.Metadata;
 using Sheenam.Api.Models.Foundations.Guests;
 using Sheenam.Api.Models.Foundations.Guests.Exceptions;
 
@@ -39,9 +38,9 @@ namespace Sheenam.Api.Services.Foundations.Guests
             }
         }
 
-        private void ValidateStorageGuestToExists(Guest maybeGuest,Guid inputGuid)
+        private void ValidateStorageGuestToExists(Guest maybeGuest, Guid inputGuid)
         {
-            if(maybeGuest is null)
+            if (maybeGuest is null)
                 throw new NotFoundGuestException(inputGuid);
         }
 

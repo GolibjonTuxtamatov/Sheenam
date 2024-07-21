@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentAssertions;
-using Moq;
+﻿using Moq;
 using Sheenam.Api.Models.Foundations.Guests;
 using Sheenam.Api.Models.Foundations.Guests.Exceptions;
 using Xunit;
@@ -32,13 +26,13 @@ namespace Sheenam.Api.Tests.Unit.Services.Foudations.Guests
             ValueTask<Guest> retrieveByIdGuestTask =
                 this.guestServic.RetrieveGuestByIdAsync(invalidGuestId);
 
-                await Assert.ThrowsAsync<GuestValidationException>(retrieveByIdGuestTask.AsTask);
+            await Assert.ThrowsAsync<GuestValidationException>(retrieveByIdGuestTask.AsTask);
 
             //then
 
             this.loggingBrokerMock.Verify(broker =>
                 broker.LogError(It.Is(SameExceptionAs(expectedGuestValidationException)))
-                    ,Times.Once);
+                    , Times.Once);
 
             this.storageBrokerMock.Verify(broker =>
                 broker.SelectGuestByIdAsync(It.IsAny<Guid>()), Times.Never);
@@ -63,7 +57,7 @@ namespace Sheenam.Api.Tests.Unit.Services.Foudations.Guests
             ValueTask<Guest> retrieveGuestyIdTask =
                 this.guestServic.RetrieveGuestByIdAsync(someGuid);
 
-                await Assert.ThrowsAsync<GuestValidationException>(retrieveGuestyIdTask.AsTask);
+            await Assert.ThrowsAsync<GuestValidationException>(retrieveGuestyIdTask.AsTask);
 
             //then
             this.storageBrokerMock.Verify(broker =>
