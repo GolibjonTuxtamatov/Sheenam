@@ -48,8 +48,8 @@ namespace Sheenam.Api.Services.Foundations.Guests
             });
 
 
-        public ValueTask<Guest> ModifyGuestAsync(Guest guest) =>
-            this.storageBroker.UpdateGuestAsync(guest);
+        public async ValueTask<Guest> ModifyGuestAsync(Guest guest) =>
+            await this.storageBroker.UpdateGuestAsync(guest);
 
         public async ValueTask<Guest> DeleteGuestAsync(Guid id)
         {
