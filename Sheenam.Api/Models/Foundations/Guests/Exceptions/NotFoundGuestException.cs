@@ -7,6 +7,6 @@ namespace Sheenam.Api.Models.Foundations.Guests.Exceptions
     {
         public NotFoundGuestException(Guid guestId)
             : base($"Guest is not found by {guestId}")
-        {}
+        { }
     }
 }

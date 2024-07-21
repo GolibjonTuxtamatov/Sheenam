@@ -16,7 +16,7 @@ namespace Sheenam.Api.Services.Foundations.Guests
         ValueTask<Guest> AddGuestAsync(Guest guest);
         IQueryable<Guest> RetrieveAllGuests();
         ValueTask<Guest> RetrieveGuestByIdAsync(Guid id);
-        ValueTask<Guest> ModifyGuestAsync(Guid id);
+        ValueTask<Guest> ModifyGuestAsync(Guest guest);
         ValueTask<Guest> DeleteGuestAsync(Guid id);
     }
 }

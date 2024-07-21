@@ -34,7 +34,7 @@ namespace Sheenam.Api.Services.Foundations.Guests
             {
                 throw CreateAndLogValidationException(invalidGuestException);
             }
-            catch(NotFoundGuestException notFoundGuestException)
+            catch (NotFoundGuestException notFoundGuestException)
             {
                 throw CreateAndLogValidationException(notFoundGuestException);
             }

@@ -96,12 +96,12 @@ namespace Sheenam.Api.Controllers
             }
         }
 
-        [HttpPut("{id}")]
-        public async ValueTask<ActionResult<Guest>> PutGuestAsync(Guid id)
+        [HttpPut]
+        public async ValueTask<ActionResult<Guest>> PutGuestAsync(Guest guest)
         {
             try
             {
-                var putedGuest = await this.guestService.ModifyGuestAsync(id);
+                var putedGuest = await this.guestService.ModifyGuestAsync(guest);
 
                 return Ok(putedGuest);
             }
